@@ -8,7 +8,7 @@ import { Colors } from "@/constants/Colors";
 import { EVENT_KEY } from "@/constants/global";
 import { isIOS } from "@/constants/platform";
 import { useClientsContext } from "@/contexts";
-import { Cliente } from "@/services/fakeApi";
+import { TNormalizedClient } from "@/types/clients";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { router } from "expo-router";
 import {
@@ -28,7 +28,7 @@ export default function HomeScreen() {
   const { showActionSheetWithOptions } = useActionSheet();
   const { deleteClient } = useClientsContext();
 
-  const handleClientAction = async (client: Cliente, currentIndex: number) => {
+  const handleClientAction = async (client: TNormalizedClient, currentIndex: number) => {
     const options = ["Abrir", "Deletar", "Cancelar"];
     const destructiveButtonIndex = 1;
     const cancelButtonIndex = 2;
@@ -59,7 +59,7 @@ export default function HomeScreen() {
     router.navigate("/(stacks)/register-client");
   };
 
-  const handleNavigateToClientDetails = (client: Cliente) => {
+  const handleNavigateToClientDetails = (client: TNormalizedClient) => {
     router.push({
       pathname: "/(stacks)/client-details",
       params: {
