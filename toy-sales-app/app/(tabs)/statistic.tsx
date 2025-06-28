@@ -1,3 +1,4 @@
+import { Loading } from "@/components/atoms";
 import { Card } from "@/components/molecules";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -78,6 +79,12 @@ export default function StatisticScreen() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (data.length === 0) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <ThemedView style={estilos.container}>
