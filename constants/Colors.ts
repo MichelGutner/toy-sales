@@ -15,8 +15,8 @@ export const Colors = {
     tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
     primaryButton: "rgb(10, 82, 144)",
-    loading: "#ffffff",
-    card: "#d4eef9",
+    white: "#ffffff",
+    card: "rgb(221, 232, 234)",
   },
   dark: {
     text: "#ECEDEE",
@@ -26,7 +26,7 @@ export const Colors = {
     tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
     primaryButton: "rgb(10, 82, 144)",
-    loading: "#ffffff",
+    white: "#ffffff",
     card: "#1a1a1a",
   },
 };
