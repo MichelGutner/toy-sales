@@ -50,10 +50,18 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(stacks)"
+          options={{
+            headerShown: true,
+            presentation: "containedModal",
+            headerBackButtonMenuEnabled: true,
+          }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
-      <Toast {...toastData} onClose={clearToast}/>
+      <Toast {...toastData} onClose={clearToast} />
     </ThemeProvider>
   );
 }

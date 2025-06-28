@@ -4,6 +4,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { getFakeData } from "@/services/fakeApi";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, useColorScheme, View } from "react-native";
 
@@ -12,6 +13,10 @@ export default function HomeScreen() {
 
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
+
+  const handleRegisterClient = () => {
+    router.navigate("/(stacks)/register-client");
+  };
 
   async function fetchData() {
     try {
@@ -30,14 +35,14 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <View style={styles.headerContainer}>
         <TextInputWithIcons
-          style={{ flex: 1 }}
+          containerStyle={{ flex: 1 }}
           placeholder="Digite o que procura"
           trailingIcon={
             <IconSymbol name="magnifyingglass" color={color.icon} />
           }
         />
         <CircleButton
-          onPress={() => {}}
+          onPress={handleRegisterClient}
           icon={<IconSymbol name="plus" color={color.white} />}
         />
       </View>

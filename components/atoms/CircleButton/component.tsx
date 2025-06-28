@@ -9,6 +9,7 @@ export const CircleButton = ({ icon, onPress }: TCircleButtonProps) => {
 
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[styles.container, { backgroundColor: color.primaryButton }]}
     >
       {icon}

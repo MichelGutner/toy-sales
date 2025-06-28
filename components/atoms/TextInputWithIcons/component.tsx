@@ -1,5 +1,6 @@
+import { Colors } from "@/constants/Colors";
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useColorScheme, View } from "react-native";
 import { TTextInputWithIconsProps } from "./types";
 
 export const TextInputWithIcons = ({
@@ -7,10 +8,13 @@ export const TextInputWithIcons = ({
   trailingIcon,
   ...props
 }: TTextInputWithIconsProps) => {
+    const colorScheme = useColorScheme();
+    const color = Colors[colorScheme ?? "light"];
+
   return (
-    <View style={style.container}>
+    <View style={[style.container, props.containerStyle]}>
       {leadingIcon && leadingIcon}
-      <TextInput {...props} style={{ flex: 1 }} />
+      <TextInput {...props} style={{ flex: 1, color: color.text }} />
       {trailingIcon && trailingIcon}
     </View>
   );
@@ -18,7 +22,6 @@ export const TextInputWithIcons = ({
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     padding: 8,

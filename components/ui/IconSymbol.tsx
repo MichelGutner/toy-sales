@@ -23,6 +23,7 @@ const MAPPING = {
   'magnifyingglass': 'search',
   'trophy.fill': 'emoji-events',
   'plus': 'add',
+  'calendar.and.person': 'event',
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
