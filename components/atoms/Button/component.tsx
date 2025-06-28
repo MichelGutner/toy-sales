@@ -36,5 +36,6 @@ const style = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
+    height: 55,
   },
 });

@@ -19,7 +19,7 @@ interface ToastProps {
 }
 
 export const Toast = ({ message, type, onClose }: ToastProps) => {
-  const translateY = useSharedValue(-100);
+  const translateY = useSharedValue(-150);
   const { top } = useSafeAreaInsets();
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -27,7 +27,7 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
   }));
 
   const hide = () => {
-    translateY.value = withTiming(-top, {
+    translateY.value = withTiming(-150, {
       duration: 200,
       easing: Easing.in(Easing.ease),
     });
