@@ -3,4 +3,5 @@ export type TCardProps = {
   leftIcon?: React.ReactNode;
   title?: string;
   subtitle?: string;
+  caption?: string;
 };

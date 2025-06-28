@@ -9,16 +9,30 @@ import {
 } from "react-native";
 import { TCardProps } from "./types";
 
-export const Card = ({ onPress, leftIcon, title, subtitle }: TCardProps) => {
+export const Card = ({
+  onPress,
+  leftIcon,
+  title,
+  subtitle,
+  caption,
+}: TCardProps) => {
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
 
   return (
-    <TouchableOpacity style={[styles.card, { backgroundColor: color.card }]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.card, { backgroundColor: color.card }]}
+    >
       {leftIcon}
-      <View>
-        <ThemedText type="default">{title}</ThemedText>
-        <ThemedText type="caption">{subtitle}</ThemedText>
+      <View style={{ flex: 1 }}>
+        <ThemedText numberOfLines={1} type="default">{title}</ThemedText>
+        <View style={styles.subtitleContainer}>
+          <ThemedText style={{ flex: 1 }} type="caption">
+            {subtitle}
+          </ThemedText>
+          <ThemedText type="caption">{caption}</ThemedText>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -27,9 +41,13 @@ export const Card = ({ onPress, leftIcon, title, subtitle }: TCardProps) => {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 12,
-    padding: 14,
+    padding: 16,
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+  },
+  subtitleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

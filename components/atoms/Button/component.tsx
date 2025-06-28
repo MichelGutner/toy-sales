@@ -20,7 +20,7 @@ export const Button = ({ label, onPress, disabled, loading }: TButtonProps) => {
       disabled={disabled}
     >
       {loading ? (
-        <ActivityIndicator color={color.loading} />
+        <ActivityIndicator color={color.white} />
       ) : (
         <ThemedText type="button">{label}</ThemedText>
       )}

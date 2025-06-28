@@ -9,15 +9,16 @@ export const TextInputWithIcons = ({
 }: TTextInputWithIconsProps) => {
   return (
     <View style={style.container}>
-      {leadingIcon && <>{leadingIcon}</>}
+      {leadingIcon && leadingIcon}
       <TextInput {...props} style={{ flex: 1 }} />
-      {trailingIcon && <>{trailingIcon}</>}
+      {trailingIcon && trailingIcon}
     </View>
   );
 };
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     padding: 8,

@@ -17,8 +17,8 @@ import { PASSWORD_VISIBILITY_HIT_SLOP } from "./constants";
 
 export default function SignInScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("michelgutner@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
   const colorScheme = useColorScheme();
@@ -36,6 +36,7 @@ export default function SignInScreen() {
     try {
       setLoading(true);
       await doLogin({ email, password });
+      router.replace("/(tabs)");
     } catch (error: Error | any) {
       NativeAppEventEmitter.emit("ToastKey", {
         message: error.message || "Login failed",
@@ -61,7 +62,9 @@ export default function SignInScreen() {
           autoComplete="email"
           placeholder="Ex: email@gmail.com"
           onChangeText={setEmail}
-          leadingIcon={<IconSymbol name="envelope.badge.person.crop" color={color.icon} />}
+          leadingIcon={
+            <IconSymbol name="envelope.badge.person.crop" color={color.icon} />
+          }
         />
         <TextInputWithIcons
           value={password}
@@ -93,7 +96,6 @@ export default function SignInScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 32,

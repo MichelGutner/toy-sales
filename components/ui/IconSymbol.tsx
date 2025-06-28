@@ -13,8 +13,16 @@ type IconSymbolName = keyof typeof MAPPING;
  * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
  * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
  */
+//<IconSymbol name="magnifyingglass" color={color.icon} />
+//trophy.fill
 const MAPPING = {
+  'house': 'home-filled',
   'house.fill': 'home',
+  'chart.pie': 'pie-chart-outline',
+  'chart.pie.fill': 'pie-chart',
+  'magnifyingglass': 'search',
+  'trophy.fill': 'emoji-events',
+  'plus': 'add',
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
