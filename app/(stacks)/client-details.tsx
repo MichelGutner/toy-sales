@@ -14,17 +14,17 @@ export default function ClientDetailsScreen() {
     name,
     email,
     birthDate,
-    totalVendas,
-    mediaVendas,
-    quantidadeVendas,
+    average,
+    quantity,
+    total,
     missingAlphabetLetter,
   } = useLocalSearchParams<{
     name: string;
     email: string;
     birthDate: string;
-    totalVendas: string;
-    mediaVendas: string;
-    quantidadeVendas: string;
+    total: string;
+    average: string;
+    quantity: string;
     missingAlphabetLetter: string;
   }>();
 
@@ -38,9 +38,9 @@ export default function ClientDetailsScreen() {
       <View style={styles.infoBlock}>
         <LabelValue label="E-mail" value={email} />
         <LabelValue label="Data de nascimento" value={birthDate} />
-        <LabelValue label="Total em vendas" value={`R$ ${totalVendas}`} />
-        <LabelValue label="Média por venda" value={`R$ ${mediaVendas}`} />
-        <LabelValue label="Compras realizadas" value={quantidadeVendas} />
+        <LabelValue label="Total em vendas" value={`R$ ${total}`} />
+        <LabelValue label="Média por venda" value={`R$ ${average}`} />
+        <LabelValue label="Compras realizadas" value={quantity} />
         <LabelValue
           label="Letra faltando no nome"
           value={missingAlphabetLetter || "-"}

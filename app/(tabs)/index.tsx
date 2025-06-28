@@ -28,9 +28,9 @@ export default function HomeScreen() {
         name: client.name,
         email: client.email,
         birthDate: client.birthDate,
-        totalVendas: client.sales.total.toFixed(2),
-        mediaVendas: client.sales.average.toFixed(2),
-        quantidadeVendas: client.sales.total.toString(),
+        total: client.statistics.total.toFixed(2),
+        average: client.statistics.average.toFixed(2),
+        quantity: client.statistics.total.toString(),
         missingAlphabetLetter: client.missingAlphabetLetter || "-",
       },
     });

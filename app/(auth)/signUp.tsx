@@ -1,25 +1,29 @@
 import { Button, TextInputWithIcons } from "@/components/atoms";
+import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { PASSWORD_VISIBILITY_HIT_SLOP } from "@/constants/hitslop";
-import { doCreateUser } from "@/services/loginApi";
+import { doLogin } from "@/services/loginApi";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   NativeAppEventEmitter,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   useColorScheme,
   View,
 } from "react-native";
 
-export default function SignUpScreen() {
+export default function SignInScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    email: "michelgutner@gmail.com",
+    password: "123456",
+  });
 
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
@@ -28,29 +32,36 @@ export default function SignUpScreen() {
   const eyeIconName = hashedPassword ? "eye.slash" : "eye";
   const passwordPlaceholder = hashedPassword ? "Ex: ********" : "Ex: 123qwe!@#";
 
+  const passwordRef = useRef<TextInput>(null);
+
   const handleTogglePasswordVisibility = () => {
     setHashedPassword((prev) => !prev);
   };
 
-  const clearInputs = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
+  const handleChange = (key: keyof typeof form, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleCreate = async () => {
+  const onChangeEmail = (value: string) => {
+    handleChange("email", value);
+  };
+
+  const onChangePassword = (value: string) => {
+    handleChange("password", value);
+  };
+
+  const onSubmitEditingEmail = () => {
+    passwordRef.current?.focus();
+  };
+
+  const handleLogin = async () => {
     try {
       setLoading(true);
-      await doCreateUser({ name, email, password });
-      NativeAppEventEmitter.emit("ToastKey", {
-        message: "User created successfully",
-        type: "success",
-      });
-      clearInputs();
-      router.back();
+      await doLogin(form);
+      router.replace("/(tabs)");
     } catch (error: Error | any) {
       NativeAppEventEmitter.emit("ToastKey", {
-        message: error.message || "Failed to create user",
+        message: error.message || "Falha ao entrar",
         type: "error",
       });
     } finally {
@@ -58,31 +69,31 @@ export default function SignUpScreen() {
     }
   };
 
+  const handleRegister = () => {
+    router.navigate("/(auth)/signUp");
+  };
+
   return (
     <ThemedView style={styles.container}>
+      <ThemedText type="title">Toy Sales</ThemedText>
       <View style={styles.inputsContainer}>
         <TextInputWithIcons
-          value={name}
-          autoCapitalize="none"
-          clearButtonMode="while-editing"
-          autoComplete="name"
-          placeholder="Ex: John Doe"
-          onChangeText={setName}
-          leadingIcon={<IconSymbol name="person.circle" color={color.icon} />}
-        />
-        <TextInputWithIcons
-          value={email}
+          value={form.email}
           autoCapitalize="none"
           clearButtonMode="while-editing"
           autoComplete="email"
           placeholder="Ex: email@gmail.com"
-          onChangeText={setEmail}
+          onChangeText={onChangeEmail}
+          returnKeyType="next"
+          onSubmitEditing={onSubmitEditingEmail}
           leadingIcon={
             <IconSymbol name="envelope.badge.person.crop" color={color.icon} />
           }
         />
+
         <TextInputWithIcons
-          value={password}
+          ref={passwordRef}
+          value={form.password}
           secureTextEntry={hashedPassword}
           clearButtonMode="while-editing"
           autoComplete="password"
@@ -90,8 +101,9 @@ export default function SignUpScreen() {
           autoCapitalize="none"
           autoCorrect={false}
           textContentType="password"
-          onChangeText={setPassword}
-          onSubmitEditing={handleCreate}
+          returnKeyType="done"
+          onChangeText={onChangePassword}
+          onSubmitEditing={handleLogin}
           leadingIcon={<IconSymbol name={lockIconName} color={color.icon} />}
           trailingIcon={
             <TouchableOpacity
@@ -102,7 +114,9 @@ export default function SignUpScreen() {
             </TouchableOpacity>
           }
         />
-        <Button label="Salvar" onPress={handleCreate} loading={loading} />
+
+        <Button label="Entrar" onPress={handleLogin} loading={loading} />
+        <Button label="Cadastrar" onPress={handleRegister} />
       </View>
     </ThemedView>
   );
@@ -110,10 +124,10 @@ export default function SignUpScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 32,
+    flex: 1,
   },
   inputsContainer: {
     width: "100%",

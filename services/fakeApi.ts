@@ -36,10 +36,14 @@ export type Cliente = {
   email: string;
   birthDate: string;
   missingAlphabetLetter: string;
-  sales: {
+  statistics: {
     total: number;
     average: number;
     quantity: number;
+    vendas: {
+      data: string;
+      valor: number;
+    }[];
   };
 };
 
@@ -51,8 +55,9 @@ export const normalizeClient = (resposta: any): Cliente[] => {
     const email = cliente?.info?.detalhes?.email ?? "";
     const birthDate = cliente?.info?.detalhes?.nascimento ?? "";
     const missingAlphabetLetter = cliente?.info?.missingLetter ?? "-";
+    const statistics = cliente?.estatisticas ?? {};
 
-    const sales = cliente.estatisticas?.vendas ?? [];
+    const sales = statistics.vendas ?? [];
 
     const total = sales.reduce(
       (acc: number, current: { data: string; valor: number }) =>
@@ -67,11 +72,7 @@ export const normalizeClient = (resposta: any): Cliente[] => {
       email,
       birthDate,
       missingAlphabetLetter,
-      sales: {
-        total,
-        average,
-        quantity,
-      },
+      statistics: { ...statistics, total, average, quantity },
     };
 
     return result;
