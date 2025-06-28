@@ -10,7 +10,9 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { Toast } from "@/components/atoms/Toast";
+import { ClientsProvider } from "@/contexts";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { useEffect, useState } from "react";
 import { NativeAppEventEmitter } from "react-native";
 
@@ -46,21 +48,25 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="(stacks)"
-          options={{
-            headerShown: false,
-            presentation: "containedModal",
-          }}
-        />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-      <Toast {...toastData} onClose={clearToast} />
-    </ThemeProvider>
+    <ActionSheetProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <ClientsProvider>
+          <Stack>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(stacks)"
+              options={{
+                headerShown: false,
+                presentation: "containedModal",
+              }}
+            />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+          <Toast {...toastData} onClose={clearToast} />
+        </ClientsProvider>
+      </ThemeProvider>
+    </ActionSheetProvider>
   );
 }

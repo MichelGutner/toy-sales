@@ -6,17 +6,49 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { isIOS } from "@/constants/platform";
-import { Cliente, getFakeData } from "@/services/fakeApi";
+import { useClientsContext } from "@/contexts";
+import { Cliente } from "@/services/fakeApi";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, useColorScheme, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const { bottom } = useSafeAreaInsets();
-  const [data, setData] = useState<Cliente[]>([]);
+  const { clients } = useClientsContext();
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { deleteClient } = useClientsContext();
+
+  const handleClientAction = async (client: Cliente, currentIndex: number) => {
+    const options = ["Abrir", "Deletar", "Cancelar"];
+    const destructiveButtonIndex = 1;
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      async (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            await handleNavigateToClientDetails(client);
+            break;
+          case destructiveButtonIndex:
+            await deleteClient(currentIndex);
+            break;
+
+          case cancelButtonIndex:
+            router.canGoBack() && router.back();
+            break;
+        }
+      }
+    );
+  };
+
   const handleRegisterClient = () => {
     router.navigate("/(stacks)/register-client");
   };
@@ -36,18 +68,6 @@ export default function HomeScreen() {
     });
   };
 
-  async function fetchData() {
-    try {
-      const response = await getFakeData();
-      setData(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <ThemedView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -65,15 +85,15 @@ export default function HomeScreen() {
       </View>
       <View style={styles.informativeContainer}>
         <ThemedText type="defaultSemiBold">Total de clientes</ThemedText>
-        <ThemedText type="defaultSemiBold">{data.length}</ThemedText>
+        <ThemedText type="defaultSemiBold">{clients.data.length}</ThemedText>
       </View>
       <FlatList
-        data={data}
+        data={clients.data}
         keyExtractor={(_, i) => i.toString()}
         ListEmptyComponent={Loading}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <Card
-            onPress={handleNavigateToClientDetails.bind(null, item)}
+            onPress={handleClientAction.bind(null, item, index)}
             title={item?.name}
             subtitle={item?.birthDate}
             caption={item?.missingAlphabetLetter}

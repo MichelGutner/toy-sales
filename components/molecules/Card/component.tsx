@@ -26,7 +26,13 @@ export const Card = ({
     >
       {leftIcon}
       <View style={{ flex: 1 }}>
-        <ThemedText numberOfLines={1} type="default">{title}</ThemedText>
+        <ThemedText
+          style={{ textTransform: "capitalize" }}
+          numberOfLines={1}
+          type="default"
+        >
+          {title}
+        </ThemedText>
         <View style={styles.subtitleContainer}>
           <ThemedText style={{ flex: 1 }} type="captionBold">
             {subtitle}
