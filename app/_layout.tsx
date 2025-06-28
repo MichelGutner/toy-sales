@@ -1,29 +1,59 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import "@/types";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Toast } from "@/components/atoms/Toast";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { useEffect, useState } from "react";
+import { NativeAppEventEmitter } from "react-native";
+
+export type ToastData = {
+  message: string;
+  type: "success" | "error" | "info";
+};
 
 export default function RootLayout() {
+  const [toastData, setToastData] = useState<ToastData>({
+    message: "",
+    type: "info",
+  });
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  const clearToast = () => {
+    setToastData({ message: "", type: toastData.type });
+  };
+
+  useEffect(() => {
+    const event = NativeAppEventEmitter.addListener("ToastKey", (data) => {
+      console.log("🚀 ~ event ~ data:", data);
+      setToastData(data);
+    });
+
+    return () => {
+      event.remove();
+    };
+  }, []);
+
+  if (!loaded) return null;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
+      <Toast {...toastData} onClose={clearToast}/>
     </ThemeProvider>
   );
 }
