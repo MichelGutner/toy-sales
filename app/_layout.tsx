@@ -61,7 +61,6 @@ export default function RootLayout() {
                 presentation: "containedModal",
               }}
             />
-            <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
           <Toast {...toastData} onClose={clearToast} />

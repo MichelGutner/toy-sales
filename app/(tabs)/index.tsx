@@ -5,12 +5,19 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
+import { EVENT_KEY } from "@/constants/global";
 import { isIOS } from "@/constants/platform";
 import { useClientsContext } from "@/contexts";
 import { Cliente } from "@/services/fakeApi";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { router } from "expo-router";
-import { FlatList, StyleSheet, useColorScheme, View } from "react-native";
+import {
+  FlatList,
+  NativeAppEventEmitter,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
@@ -38,9 +45,8 @@ export default function HomeScreen() {
             await handleNavigateToClientDetails(client);
             break;
           case destructiveButtonIndex:
-            await deleteClient(currentIndex);
+            await handleDeleteClient(currentIndex);
             break;
-
           case cancelButtonIndex:
             router.canGoBack() && router.back();
             break;
@@ -66,6 +72,21 @@ export default function HomeScreen() {
         missingAlphabetLetter: client.missingAlphabetLetter || "-",
       },
     });
+  };
+
+  const handleDeleteClient = async (index: number) => {
+    try {
+      await deleteClient(index);
+      NativeAppEventEmitter.emit(EVENT_KEY.toast, {
+        message: "Client deleted with successfully",
+        type: "success",
+      });
+    } catch (error: Error | any) {
+      NativeAppEventEmitter.emit(EVENT_KEY.toast, {
+        message: error.message || "Failed to delete client",
+        type: "error",
+      });
+    }
   };
 
   return (

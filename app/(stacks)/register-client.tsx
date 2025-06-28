@@ -2,6 +2,7 @@ import { Button, TextInputWithIcons } from "@/components/atoms";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
+import { EVENT_KEY } from "@/constants/global";
 import { useClientsContext } from "@/contexts";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
@@ -34,11 +35,11 @@ export default function RegisterClientScreen() {
   const hideDatePicker = () => setShowPicker(false);
 
   const handleConfirm = (date: Date) => {
-    const formattedDate = date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    const formattedDate = `${day}-${month}-${year}`;
 
     setForm((prev) => ({ ...prev, birthDate: formattedDate }));
     hideDatePicker();
@@ -53,14 +54,14 @@ export default function RegisterClientScreen() {
     try {
       setLoading(true);
       await addClient(form.name, form.email, form.birthDate);
-      NativeAppEventEmitter.emit("ToastKey", {
+      NativeAppEventEmitter.emit(EVENT_KEY.toast, {
         message: "Client created successfully",
         type: "success",
       });
       clearInputs();
       router.back();
     } catch (error: any) {
-      NativeAppEventEmitter.emit("ToastKey", {
+      NativeAppEventEmitter.emit(EVENT_KEY.toast, {
         message: error.message || "Failed to create client",
         type: "error",
       });

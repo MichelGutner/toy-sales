@@ -1,7 +1,11 @@
 import { TNormalizedClient } from "@/types/clients";
 
 export interface IClientsContextProps {
-  clients: TClientsData;
+  clients: TClientsData & {
+    withMostSales: TNormalizedClient;
+    withMostAverage: TNormalizedClient;
+    withMostPurchases: TNormalizedClient;
+  };
   addClient: (name: string, email: string, born: string) => Promise<unknown>;
   deleteClient: (index: number) => Promise<unknown>;
 }

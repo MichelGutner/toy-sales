@@ -3,6 +3,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
+import { TClientDetailsRouteParams } from "@/types/routes.types";
 import { router, useLocalSearchParams } from "expo-router";
 import { StyleSheet, useColorScheme, View } from "react-native";
 
@@ -18,17 +19,7 @@ export default function ClientDetailsScreen() {
     quantity,
     total,
     missingAlphabetLetter,
-  } = useLocalSearchParams<{
-    name: string;
-    email: string;
-    birthDate: string;
-    total: string;
-    average: string;
-    quantity: string;
-    missingAlphabetLetter: string;
-  }>();
-
-  // verficar possibilidade de adicionar conquistas do mês
+  } = useLocalSearchParams<TClientDetailsRouteParams>();
 
   return (
     <ThemedView style={styles.container}>

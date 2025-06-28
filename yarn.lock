@@ -1101,7 +1101,7 @@
     base64-js "^1.2.3"
     xmlbuilder "^15.1.1"
 
-"@expo/prebuild-config@^9.0.6", "@expo/prebuild-config@^9.0.7":
+"@expo/prebuild-config@^9.0.7":
   version "9.0.8"
   resolved "https://registry.npmjs.org/@expo/prebuild-config/-/prebuild-config-9.0.8.tgz"
   integrity sha512-vzORt1zrgjIYOKAmHk0SUka0rlYo0AIZpOF6019ms2XaQnxyvcQACz1BxTk2++fTAzSAxerufNQOm2owPcAz+g==
@@ -3504,13 +3504,6 @@ expo-router@~5.1.1:
     semver "~7.6.3"
     server-only "^0.0.1"
     shallowequal "^1.1.0"
-
-expo-splash-screen@~0.30.9:
-  version "0.30.9"
-  resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.30.9.tgz"
-  integrity sha512-curHUaZxUTZ2dWvz32ao3xPv5mJr1LBqn5V8xm/IULAehB9RGCn8iKiROMN1PYebSG+56vPMuJmBm9P+ayvJpA==
-  dependencies:
-    "@expo/prebuild-config" "^9.0.6"
 
 expo-status-bar@~2.2.3:
   version "2.2.3"

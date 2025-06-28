@@ -8,6 +8,7 @@ import { doLogin } from "@/services/loginApi";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import {
+  Image,
   NativeAppEventEmitter,
   StyleSheet,
   TextInput,
@@ -15,10 +16,11 @@ import {
   useColorScheme,
   View,
 } from "react-native";
+const logoImage = require("@/assets/images/logo.png");
 
 export default function SignInScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);
-  const [email, setEmail] = useState("michelgutner@gmail.com");
+  const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
@@ -56,6 +58,7 @@ export default function SignInScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <Image source={logoImage} style={styles.logo} resizeMode="contain" />
       <ThemedText type="title">Toy Sales</ThemedText>
       <View style={styles.inputsContainer}>
         <TextInputWithIcons
@@ -66,7 +69,7 @@ export default function SignInScreen() {
           placeholder="Ex: email@gmail.com"
           onChangeText={setEmail}
           returnKeyType="next"
-          onSubmitEditing={() => passwordInputRef.current?.focus()}
+          onSubmitEditing={passwordInputRef.current?.focus}
           leadingIcon={
             <IconSymbol name="envelope.badge.person.crop" color={color.icon} />
           }
@@ -105,7 +108,6 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    justifyContent: "center",
     gap: 32,
   },
   inputsContainer: {
@@ -113,4 +115,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     gap: 16,
   },
+  logo: { width: 150, height: 150 },
 });

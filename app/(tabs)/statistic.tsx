@@ -4,8 +4,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
-import { Cliente, getFakeData } from "@/services/fakeApi";
-import React, { useEffect, useState } from "react";
+import { useClientsContext } from "@/contexts";
+import React from "react";
 import {
   Image,
   StyleSheet,
@@ -16,28 +16,13 @@ import {
 import { LineChart } from "react-native-chart-kit";
 
 export default function StatisticScreen() {
-  const [data, setData] = useState<Cliente[]>([]);
+  const { clients } = useClientsContext();
+
   const { width } = useWindowDimensions();
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
 
-  const clientWithMostSales = data.reduce((prev, current) => {
-    return prev.statistics.total > current.statistics.total ? prev : current;
-  }, data[0]);
-
-  const clientWithMostAverage = data.reduce((prev, current) => {
-    return prev.statistics.average > current.statistics.average
-      ? prev
-      : current;
-  }, data[0]);
-
-  const clientWithMostPurchases = data.reduce((prev, current) => {
-    return prev.statistics.quantity > current.statistics.quantity
-      ? prev
-      : current;
-  }, data[0]);
-
-  const dates = data
+  const sortedSalesDates = clients.data
     .flatMap((item) =>
       item.statistics.vendas.map((sale) => {
         const date = new Date(sale.data);
@@ -58,32 +43,18 @@ export default function StatisticScreen() {
     });
 
   const salesData = {
-    labels: dates.map((d) => d.date).slice(0, 7), // Últimos 7 dias
+    labels: sortedSalesDates.map((d) => d.date).slice(0, 7),
     datasets: [
       {
-        data: dates.map((d) => d.value).slice(0, 7),
+        data: sortedSalesDates.map((d) => d.value).slice(0, 7),
         strokeWidth: 3,
         color: () => color.tabIconSelected,
       },
     ],
   };
 
-  async function fetchData() {
-    try {
-      const response = await getFakeData();
-      setData(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (data.length === 0) {
-    return (
-      <Loading />
-    );
+  if (clients.loading) {
+    return <Loading />;
   }
 
   return (
@@ -127,17 +98,17 @@ export default function StatisticScreen() {
       </View>
 
       <Card
-        title={clientWithMostSales.name}
+        title={clients.withMostSales.name}
         subtitle="Top 1 vendas"
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
-        title={clientWithMostAverage.name}
+        title={clients.withMostAverage.name}
         subtitle="Top 1 média vendas"
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
-        title={clientWithMostPurchases.name}
+        title={clients.withMostPurchases.name}
         subtitle="Top 1 compras"
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
