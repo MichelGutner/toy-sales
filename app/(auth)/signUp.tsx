@@ -2,6 +2,7 @@ import { Button, TextInputWithIcons } from "@/components/atoms";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
+import { PASSWORD_VISIBILITY_HIT_SLOP } from "@/constants/hitslop";
 import { doCreateUser } from "@/services/loginApi";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -12,7 +13,6 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { PASSWORD_VISIBILITY_HIT_SLOP } from "../signIn/constants";
 
 export default function SignUpScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);

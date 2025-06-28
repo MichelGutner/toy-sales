@@ -53,9 +53,8 @@ export default function RootLayout() {
         <Stack.Screen
           name="(stacks)"
           options={{
-            headerShown: true,
+            headerShown: false,
             presentation: "containedModal",
-            headerBackButtonMenuEnabled: true,
           }}
         />
         <Stack.Screen name="+not-found" />

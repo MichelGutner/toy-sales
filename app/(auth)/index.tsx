@@ -3,17 +3,18 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
+import { PASSWORD_VISIBILITY_HIT_SLOP } from "@/constants/hitslop";
 import { doLogin } from "@/services/loginApi";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   NativeAppEventEmitter,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   useColorScheme,
   View,
 } from "react-native";
-import { PASSWORD_VISIBILITY_HIT_SLOP } from "./constants";
 
 export default function SignInScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);
@@ -27,6 +28,8 @@ export default function SignInScreen() {
   const lockIconName = hashedPassword ? "lock" : "lock.open";
   const eyeIconName = hashedPassword ? "eye.slash" : "eye";
   const passwordPlaceholder = hashedPassword ? "Ex: ********" : "Ex: 123qwe!@#";
+
+  const passwordInputRef = useRef<TextInput>(null);
 
   const handleTogglePasswordVisibility = () => {
     setHashedPassword((prev) => !prev);
@@ -48,7 +51,7 @@ export default function SignInScreen() {
   };
 
   const handleRegister = () => {
-    router.navigate("/singUp");
+    router.navigate("/(auth)/signUp");
   };
 
   return (
@@ -62,11 +65,14 @@ export default function SignInScreen() {
           autoComplete="email"
           placeholder="Ex: email@gmail.com"
           onChangeText={setEmail}
+          returnKeyType="next"
+          onSubmitEditing={() => passwordInputRef.current?.focus()}
           leadingIcon={
             <IconSymbol name="envelope.badge.person.crop" color={color.icon} />
           }
         />
         <TextInputWithIcons
+          ref={passwordInputRef}
           value={password}
           secureTextEntry={hashedPassword}
           clearButtonMode="while-editing"
@@ -75,8 +81,9 @@ export default function SignInScreen() {
           autoCapitalize="none"
           autoCorrect={false}
           textContentType="password"
-          onChangeText={setPassword}
+          returnKeyType="done"
           onSubmitEditing={handleLogin}
+          onChangeText={setPassword}
           leadingIcon={<IconSymbol name={lockIconName} color={color.icon} />}
           trailingIcon={
             <TouchableOpacity
@@ -87,6 +94,7 @@ export default function SignInScreen() {
             </TouchableOpacity>
           }
         />
+
         <Button label="Entrar" onPress={handleLogin} loading={loading} />
         <Button label="Cadastrar" onPress={handleRegister} />
       </View>
