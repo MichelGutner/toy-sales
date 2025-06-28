@@ -1,5 +1,6 @@
+import { ThemedText } from "@/components/ThemedText";
 import React from "react";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -69,7 +70,9 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
         { backgroundColor: getBackgroundColor() },
       ]}
     >
-      <Text style={styles.toastText}>{message}</Text>
+      <ThemedText type="default" style={{ color: "white" }}>
+        {message}
+      </ThemedText>
     </Animated.View>
   );
 };
@@ -83,10 +86,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     zIndex: 1000,
     elevation: 5,
-  },
-  toastText: {
-    color: "#fff",
-    fontSize: 16,
-    textAlign: "center",
   },
 });
