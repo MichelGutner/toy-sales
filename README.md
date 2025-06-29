@@ -1,50 +1,131 @@
-# Welcome to your Expo app 👋
+# 🧸 Toy Sales - Frontend
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicação mobile desenvolvida em React Native para o desafio técnico da loja de brinquedos **Toy Sales**.
 
-## Get started
+## 📋 Sumário
 
-1. Install dependencies
+- [🔧 Tecnologias utilizadas](#-tecnologias-utilizadas)
+- [🚀 Como rodar o projeto](#-como-rodar-o-projeto)
+- [🧠 O que foi implementado](#-o-que-foi-implementado)
+- [🔐 Autenticação](#-autenticação)
+- [📊 Estatísticas](#-estatísticas)
+- [🧪 Testes (opcional)](#-testes-opcional)
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## 🔧 Tecnologias utilizadas
 
-   ```bash
-   npx expo start
-   ```
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [RNChartsKit](https://github.com/indiespirit/react-native-chart-kit) - Gráficos
+- Context API - Gerenciamento de dados
+- React Navigation
+- ESLint + Prettier + Husky (opcional)
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🚀 Como rodar o projeto
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Pré-requisitos
 
-## Get a fresh project
-
-When you're ready, run:
+- Node.js ≥ 18
+- Yarn ou npm
+- Expo CLI instalado globalmente:
 
 ```bash
-npm run reset-project
+npm install -g expo-cli
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Instalação
 
-## Learn more
+```bash
+# Clone o projeto
+git clone https://github.com/MichelGutner/toy-sales.git
+cd toy-sales
 
-To learn more about developing your project with Expo, look at the following resources:
+# Instale as dependências
+yarn install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Executando o projeto
 
-## Join the community
+```bash
+# Rode o projeto com Expo
+yarn ios | yarn android
+```
 
-Join our community of developers creating universal apps.
+A aplicação abrirá o painel do Expo, onde você poderá escanear o QR Code com o app **Expo Go** ou executar em emulador Android/iOS.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 🧠 O que foi implementado
+
+### ✅ Funcionalidades
+
+- **Cadastro de Clientes** (nome, e-mail, data de nascimento)
+- **Listagem de Clientes com Normalização de Dados** (limpa dados duplicados/aninhados)
+- **Splash screen e ícone personalizado**
+- **Dashboard com Gráficos:**
+  - Total de vendas por dia
+  - Destaque para:
+    - Cliente com maior volume de vendas
+    - Cliente com maior média por venda
+    - Cliente com maior frequência de compras
+- **Campo extra de análise alfabética:**
+  - Mostra a primeira letra do alfabeto que ainda **não aparece** no nome do cliente (ou '-' se todas estão presentes)
+
+---
+
+## 🔐 Autenticação
+
+- O login é realizado por e-mail e senha cadastrados
+
+---
+
+## 📊 Estatísticas
+
+Na rota de dashboard, foram consumidas (via mock) as rotas de estatísticas:
+
+- **Total de vendas por dia** (para gráfico)
+- **Top clientes por:**
+  - Volume de vendas
+  - Média de vendas
+  - Frequência de compras (dias únicos com vendas)
+
+---
+
+## 📎 Mock de APIs
+
+A API foi completamente simulada no frontend com base nas exigências do teste técnico:
+
+- **Clientes com dados duplicados e aninhados**
+- **Filtros por nome e e-mail**
+- **Respostas baseadas no JSON informado no desafio**
+- **Dados salvos em memória via mock**
+
+---
+
+## 🧪 Testes (opcional)
+
+---
+
+## 📁 Estrutura de pastas
+
+```
+src/
+├── assets/            # Splash screen, ícones, fontes
+├── components/        # Componentes reutilizáveis
+├── context/           # ClientsProvider
+├── hooks/             # Custom hooks
+├── apps/              # Rotas e páginas
+├── services/          # Funções de API
+├── types/             # Tipagens globais
+└── constants/         # Contants globais
+```
+
+---
+
+## 👤 Autor
+
+Desenvolvido por [Seu Nome](https://github.com/seu-usuario)
