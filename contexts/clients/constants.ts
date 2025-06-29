@@ -1,4 +1,6 @@
-const clientesData = [
+import { extensionClientsList } from "./mock";
+
+const clientesBase = [
   {
     info: {
       nomeCompleto: "Ana Beatriz",
@@ -31,7 +33,7 @@ const clientesData = [
   },
 ];
 
-export const data = { clients: clientesData };
+export const data = { clients: [...clientesBase, ...extensionClientsList] };
 
 export const initialState = {
   data: [],
