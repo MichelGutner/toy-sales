@@ -94,16 +94,19 @@ export default function StatisticScreen() {
       </View>
 
       <Card
+        disabled
         title={clients.withMostSales.name}
         subtitle={i18n.t("topOneSales")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
+        disabled
         title={clients.withMostAverage.name}
         subtitle={i18n.t("topOneAverage")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
+        disabled
         title={clients.withMostPurchases.name}
         subtitle={i18n.t("topOnePurchases")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}

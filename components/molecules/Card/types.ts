@@ -4,4 +4,5 @@ export type TCardProps = {
   title?: string;
   subtitle?: string;
   caption?: string;
+  disabled?: boolean;
 };

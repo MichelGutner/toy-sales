@@ -15,12 +15,14 @@ export const Card = ({
   title,
   subtitle,
   caption,
+  disabled
 }: TCardProps) => {
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
 
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
       style={[styles.card, { backgroundColor: color.card }]}
     >
