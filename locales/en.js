@@ -20,7 +20,7 @@ export default {
   home: "Home",
   statistic: "Statistics",
   openButton: "Open",
-  deleteBututon: "Delete",
+  deleteButton: "Delete",
   clientDeletedSuccessfully: "Client deleted successfully",
   clientDeletionFailed: "Failed to delete client",
   searchPlaceholder: "Type what you want...",

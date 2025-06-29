@@ -52,6 +52,10 @@ export default function HomeScreen() {
         options,
         cancelButtonIndex,
         destructiveButtonIndex,
+        containerStyle: {
+          backgroundColor: color.background,
+          borderRadius: 12,
+        }
       },
       async (selectedIndex?: number) => {
         switch (selectedIndex) {
