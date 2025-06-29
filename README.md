@@ -8,6 +8,7 @@ Aplicação mobile desenvolvida em React Native para o desafio técnico da loja 
 - [🚀 Como rodar o projeto](#-como-rodar-o-projeto)
 - [🧠 O que foi implementado](#-o-que-foi-implementado)
 - [🔐 Autenticação](#-autenticação)
+- [🔎 Search](#-autenticação)
 - [📊 Estatísticas](#-estatísticas)
 - [🧪 Testes (opcional)](#-testes-opcional)
 
@@ -81,6 +82,12 @@ A aplicação abrirá o painel do Expo, onde você poderá escanear o QR Code co
 ## 🔐 Autenticação
 
 - O login é realizado por e-mail e senha cadastrados
+
+---
+
+## 🔎 Search
+
+- Implementado sistema de busca com priorização: os resultados com maior correspondência aparecem primeiro, enquanto os menos relevantes são exibidos abaixo. Caso não haja caracteres em comum, os itens são filtrados e excluídos da listagem.
 
 ---
 

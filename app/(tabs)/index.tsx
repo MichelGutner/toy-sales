@@ -8,6 +8,7 @@ import { Colors } from "@/constants/Colors";
 import { EVENT_KEY } from "@/constants/global";
 import { isIOS } from "@/constants/platform";
 import { useClientsContext } from "@/contexts";
+import { useFilterData } from "@/hooks/usefilterData";
 import { TNormalizedClient } from "@/types/clients";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { router } from "expo-router";
@@ -24,6 +25,11 @@ import i18n from "../../i18n";
 export default function HomeScreen() {
   const { bottom } = useSafeAreaInsets();
   const { clients } = useClientsContext();
+  const [filterData, { data }] = useFilterData(
+    clients.data,
+    "name",
+    true
+  );
   const colorScheme = useColorScheme();
   const color = Colors[colorScheme ?? "light"];
   const { showActionSheetWithOptions } = useActionSheet();
@@ -101,6 +107,7 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <View style={styles.headerContainer}>
         <TextInputWithIcons
+          onChangeText={filterData}
           containerStyle={{ flex: 1 }}
           placeholder={i18n.t("searchPlaceholder")}
           trailingIcon={
@@ -117,7 +124,7 @@ export default function HomeScreen() {
         <ThemedText type="defaultSemiBold">{clients.data.length}</ThemedText>
       </View>
       <FlatList
-        data={clients.data}
+        data={data}
         keyExtractor={(_, i) => i.toString()}
         ListEmptyComponent={Loading}
         renderItem={({ item, index }) => (
