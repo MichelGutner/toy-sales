@@ -1,16 +1,22 @@
 # 🧸 Toy Sales - Frontend
 
-Aplicação mobile desenvolvida em React Native para o desafio técnico da loja de brinquedos **Toy Sales**.
+Aplicativo mobile desenvolvido com **React Native (Expo)** para o desafio técnico da loja de brinquedos **Toy Sales**.
+
+---
 
 ## 📋 Sumário
 
 - [🔧 Tecnologias utilizadas](#-tecnologias-utilizadas)
 - [🚀 Como rodar o projeto](#-como-rodar-o-projeto)
-- [🧠 O que foi implementado](#-o-que-foi-implementado)
+- [🧠 Funcionalidades implementadas](#-funcionalidades-implementadas)
 - [🔐 Autenticação](#-autenticação)
-- [🔎 Search](#-autenticação)
-- [📊 Estatísticas](#-estatísticas)
-- [🧪 Testes (opcional)](#-testes-opcional)
+- [🔎 Busca inteligente](#-busca-inteligente)
+- [📊 Dashboard e estatísticas](#-dashboard-e-estatísticas)
+- [🌓 Suporte a temas](#-suporte-a-temas)
+- [🌍 Internacionalização (i18n)](#-internacionalização-i18n)
+- [🧪 Testes](#-testes)
+- [📁 Estrutura de pastas](#-estrutura-de-pastas)
+- [👤 Autor](#-autor)
 
 ---
 
@@ -19,10 +25,10 @@ Aplicação mobile desenvolvida em React Native para o desafio técnico da loja 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [RNChartsKit](https://github.com/indiespirit/react-native-chart-kit) - Gráficos
-- [i18n/Localizaton](https://docs.expo.dev/guides/localization/#complete-example) - Internazionalização
-- Context API - Gerenciamento de dados
-- [Router](https://docs.expo.dev/versions/latest/sdk/router/) - Navegação
+- [react-native-chart-kit](https://github.com/indiespirit/react-native-chart-kit)
+- [i18n-js + expo-localization](https://docs.expo.dev/guides/localization/) — Internacionalização
+- Context API — Gerenciamento de estado
+- [Expo Router](https://docs.expo.dev/versions/latest/sdk/router/) — Navegação
 - ESLint + Prettier + Husky (opcional)
 
 ---
@@ -33,7 +39,7 @@ Aplicação mobile desenvolvida em React Native para o desafio técnico da loja 
 
 - Node.js ≥ 18
 - Yarn ou npm
-- Expo CLI instalado globalmente:
+- Expo CLI:
 
 ```bash
 npm install -g expo-cli
@@ -42,96 +48,85 @@ npm install -g expo-cli
 ### Instalação
 
 ```bash
-# Clone o projeto
 git clone https://github.com/MichelGutner/toy-sales.git
 cd toy-sales
-
-# Instale as dependências
 yarn install
 ```
 
-### Executando o projeto
+### Execução
 
 ```bash
-# Rode o projeto com Expo
-yarn ios | yarn android
+# Inicie o app com o Expo
+yarn ios     # ou yarn android
 ```
 
-A aplicação abrirá o painel do Expo, onde você poderá escanear o QR Code com o app **Expo Go** ou executar em emulador Android/iOS.
+A aplicação será aberta no painel do Expo. Você pode escanear o QR Code com o app **Expo Go** ou rodar em um emulador.
 
 ---
 
-## 🧠 O que foi implementado
+## 🧠 Funcionalidades implementadas
 
-### ✅ Funcionalidades
-
-- **Cadastro de Clientes** (nome, e-mail, data de nascimento)
-- **Listagem de Clientes com Normalização de Dados** (limpa dados duplicados/aninhados)
-- **Splash screen e ícone personalizado**
-- **Dashboard com Gráficos:**
+- Cadastro e listagem de clientes
+- Normalização de dados duplicados/aninhados
+- Splash screen e ícone personalizados
+- Dashboard com gráficos e indicadores:
   - Total de vendas por dia
-  - Destaque para:
-    - Cliente com maior volume de vendas
-    - Cliente com maior média por venda
-    - Cliente com maior frequência de compras
-- **Campo extra de análise alfabética:**
-  - Mostra a primeira letra do alfabeto que ainda **não aparece** no nome do cliente (ou '-' se todas estão presentes)
+  - Cliente com maior volume de vendas
+  - Cliente com maior média por venda
+  - Cliente com maior frequência de compras
+- Análise alfabética: identifica a primeira letra do alfabeto ainda não usada nos nomes dos clientes
 
 ---
 
 ## 🔐 Autenticação
 
-- O login é realizado por e-mail e senha cadastrados
+- Login via e-mail e senha
+- Validação básica no frontend
 
 ---
 
-## 🔎 Search
+## 🔎 Busca inteligente
 
-- Implementado sistema de busca com priorização: os resultados com maior correspondência aparecem primeiro, enquanto os menos relevantes são exibidos abaixo. Caso não haja caracteres em comum, os itens são filtrados e excluídos da listagem.
+- Sistema de busca com priorização de correspondência
+- Resultados mais relevantes aparecem no topo
+- Palavras sem correspondência são automaticamente excluídas da lista
 
 ---
 
-## 📊 Estatísticas
+## 📊 Dashboard e estatísticas
 
-Na rota de dashboard, foram consumidas (via mock) as rotas de estatísticas:
+Rotas mockadas de estatísticas (simuladas no frontend):
 
-- **Total de vendas por dia** (para gráfico)
-- **Top clientes por:**
+- Total de vendas por dia
+- Top clientes por:
   - Volume de vendas
-  - Média de vendas
-  - Frequência de compras (dias únicos com vendas)
+  - Média por venda
+  - Frequência de compras (dias únicos)
 
 ---
 
-## 📎 Mock de APIs
+## 🌓 Suporte a temas
 
-A API foi completamente simulada no frontend com base nas exigências do teste técnico:
+A aplicação possui **suporte completo a temas claro e escuro**, adaptando-se automaticamente às configurações do sistema operacional.
 
-- **Clientes com dados duplicados e aninhados**
-- **Filtros por nome e e-mail**
-- **Respostas baseadas no JSON informado no desafio**
-- **Dados salvos em memória via mock**
+- As cores são gerenciadas dinamicamente com base no tema atual
+- Compatível com Android, iOS e Expo Go
 
 ---
 
-A aplicação foi desenvolvida com suporte a múltiplos idiomas utilizando a biblioteca de [i18n/Localization](https://docs.expo.dev/guides/localization/#complete-example).
+## 🌍 Internacionalização (i18n)
 
-### Idiomas suportados
-
-- Português (pt-BR)
-- Inglês (en-US)
-
-### Como funciona
-
-- O idioma é detectado automaticamente com base nas configurações do dispositivo.
-- Caso o idioma do dispositivo não seja suportado, o padrão será **Inglês**.
+- Suporte a múltiplos idiomas utilizando `i18n-js` e `expo-localization`
+- Idiomas disponíveis:
+  - Português (pt-BR)
+  - Inglês (en-US)
+- O idioma é detectado automaticamente com fallback para portugês
 
 ### Adicionando novos idiomas
 
-Para adicionar novos idiomas, basta incluir os arquivos de tradução na pasta `i18n` e configurar os textos no formato JSON.
+Inclua um novo arquivo JSON em `src/i18n` e atualize a configuração.
 
-Exemplo de arquivo de tradução (`pt-BR.json`):
-
+Exemplo (`pt-BR.json`):
 ```json
 {
   "login": "Entrar",
@@ -139,7 +134,11 @@ Exemplo de arquivo de tradução (`pt-BR.json`):
 }
 ```
 
-## 🧪 Testes (opcional)
+---
+
+## 🧪 Testes
+
+> (Opcional) A aplicação está preparada para receber testes unitários e de integração.
 
 ---
 
@@ -147,18 +146,18 @@ Exemplo de arquivo de tradução (`pt-BR.json`):
 
 ```
 src/
-├── assets/            # Splash screen, ícones, fontes
-├── components/        # Componentes reutilizáveis
-├── context/           # ClientsProvider
-├── hooks/             # Custom hooks
-├── apps/              # Rotas e páginas
-├── services/          # Funções de API
-├── types/             # Tipagens globais
-└── constants/         # Contants globais
+├── assets/         # Splash, ícones e fontes
+├── components/     # Componentes reutilizáveis
+├── context/        # ClientsProvider
+├── hooks/          # Custom hooks
+├── apps/           # Rotas e páginas
+├── services/       # Funções simuladas de API
+├── types/          # Tipagens globais
+└── constants/      # Constantes do projeto
 ```
 
 ---
 
 ## 👤 Autor
 
-Desenvolvido por [Seu Nome](https://github.com/seu-usuario)
+Desenvolvido por [Michel Gutner](https://github.com/MichelGutner) 🧸
