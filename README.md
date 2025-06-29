@@ -19,8 +19,9 @@ Aplicação mobile desenvolvida em React Native para o desafio técnico da loja 
 - [Expo](https://expo.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [RNChartsKit](https://github.com/indiespirit/react-native-chart-kit) - Gráficos
+- [i18n/Localizaton](https://docs.expo.dev/guides/localization/#complete-example) - Internazionalização
 - Context API - Gerenciamento de dados
-- React Navigation
+- [Router](https://docs.expo.dev/versions/latest/sdk/router/) - Navegação
 - ESLint + Prettier + Husky (opcional)
 
 ---
@@ -105,6 +106,31 @@ A API foi completamente simulada no frontend com base nas exigências do teste t
 - **Dados salvos em memória via mock**
 
 ---
+
+A aplicação foi desenvolvida com suporte a múltiplos idiomas utilizando a biblioteca de [i18n/Localization](https://docs.expo.dev/guides/localization/#complete-example).
+
+### Idiomas suportados
+
+- Português (pt-BR)
+- Inglês (en-US)
+
+### Como funciona
+
+- O idioma é detectado automaticamente com base nas configurações do dispositivo.
+- Caso o idioma do dispositivo não seja suportado, o padrão será **Inglês**.
+
+### Adicionando novos idiomas
+
+Para adicionar novos idiomas, basta incluir os arquivos de tradução na pasta `i18n` e configurar os textos no formato JSON.
+
+Exemplo de arquivo de tradução (`pt-BR.json`):
+
+```json
+{
+  "login": "Entrar",
+  "logout": "Sair"
+}
+```
 
 ## 🧪 Testes (opcional)
 

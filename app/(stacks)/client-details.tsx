@@ -6,6 +6,7 @@ import { Colors } from "@/constants/Colors";
 import { TClientDetailsRouteParams } from "@/types/routes.types";
 import { router, useLocalSearchParams } from "expo-router";
 import { StyleSheet, useColorScheme, View } from "react-native";
+import i18n from "../../i18n";
 
 export default function ClientDetailsScreen() {
   const colorScheme = useColorScheme();
@@ -27,17 +28,17 @@ export default function ClientDetailsScreen() {
 
       <ThemedText type="title">{name}</ThemedText>
       <View style={styles.infoBlock}>
-        <LabelValue label="E-mail" value={email} />
-        <LabelValue label="Data de nascimento" value={birthDate} />
-        <LabelValue label="Total em vendas" value={`R$ ${total}`} />
-        <LabelValue label="Média por venda" value={`R$ ${average}`} />
-        <LabelValue label="Compras realizadas" value={quantity} />
+        <LabelValue label={i18n.t("email")} value={email} />
+        <LabelValue label={i18n.t("birthDate")} value={birthDate} />
+        <LabelValue label={i18n.t("totalSales")} value={`R$ ${total}`} />
+        <LabelValue label={i18n.t("averagePerSale")} value={`R$ ${average}`} />
+        <LabelValue label={i18n.t("purchasesMade")} value={quantity} />
         <LabelValue
-          label="Letra faltando no nome"
+          label={i18n.t("missingAlphabetLetter")}
           value={missingAlphabetLetter || "-"}
         />
       </View>
-      <Button label="Sair" onPress={router.back} />
+      <Button label={i18n.t("back")} onPress={router.back} />
     </ThemedView>
   );
 }

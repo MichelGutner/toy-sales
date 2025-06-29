@@ -16,6 +16,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
+import i18n from "../../i18n";
 const logoImage = require("@/assets/images/logo.png");
 
 export default function SignInScreen() {
@@ -44,7 +45,7 @@ export default function SignInScreen() {
       router.replace("/(tabs)");
     } catch (error: Error | any) {
       NativeAppEventEmitter.emit("ToastKey", {
-        message: error.message || "Login failed",
+        message: error.message || i18n.t("loginFailedMessage"),
         type: "error",
       });
     } finally {
@@ -59,7 +60,7 @@ export default function SignInScreen() {
   return (
     <ThemedView style={styles.container}>
       <Image source={logoImage} style={styles.logo} resizeMode="contain" />
-      <ThemedText type="title">Toy Sales</ThemedText>
+      <ThemedText type="title">{i18n.t("appName")}</ThemedText>
       <View style={styles.inputsContainer}>
         <TextInputWithIcons
           value={email}
@@ -98,8 +99,12 @@ export default function SignInScreen() {
           }
         />
 
-        <Button label="Entrar" onPress={handleLogin} loading={loading} />
-        <Button label="Cadastrar" onPress={handleRegister} />
+        <Button
+          label={i18n.t("loginButton")}
+          onPress={handleLogin}
+          loading={loading}
+        />
+        <Button label={i18n.t("registerButton")} onPress={handleRegister} />
       </View>
     </ThemedView>
   );

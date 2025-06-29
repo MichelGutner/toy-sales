@@ -14,6 +14,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
+import i18n from "../../i18n";
 
 export default function SignUpScreen() {
   const [hashedPassword, setHashedPassword] = useState(true);
@@ -44,14 +45,14 @@ export default function SignUpScreen() {
       setLoading(true);
       await doCreateUser({ name, email, password });
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: "User created successfully",
+        message: i18n.t("createUserSuccessMessage"),
         type: "success",
       });
       clearInputs();
       router.back();
     } catch (error: Error | any) {
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: error.message || "Failed to create user",
+        message: error.message || i18n.t("createUserFailedMessage"),
         type: "error",
       });
     } finally {
@@ -103,7 +104,11 @@ export default function SignUpScreen() {
             </TouchableOpacity>
           }
         />
-        <Button label="Salvar" onPress={handleCreate} loading={loading} />
+        <Button
+          label={i18n.t("saveButton")}
+          onPress={handleCreate}
+          loading={loading}
+        />
       </View>
     </ThemedView>
   );

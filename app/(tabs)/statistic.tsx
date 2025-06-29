@@ -5,9 +5,9 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { useClientsContext } from "@/contexts";
+import i18n from "@/i18n";
 import React from "react";
 import {
-  Image,
   StyleSheet,
   useColorScheme,
   useWindowDimensions,
@@ -60,16 +60,12 @@ export default function StatisticScreen() {
   return (
     <ThemedView style={estilos.container}>
       <View style={estilos.header}>
-        <ThemedText type="title">Dashboard</ThemedText>
-        <Image
-          source={{ uri: "https://i.pravatar.cc/100" }}
-          style={estilos.avatar}
-        />
+        <ThemedText type="title">{i18n.t("dashBord")}</ThemedText>
       </View>
-      <ThemedText type="subtitle">Summary</ThemedText>
+      <ThemedText type="subtitle">{i18n.t("summary")}</ThemedText>
       <View style={estilos.graphArea}>
         <ThemedText style={{ alignSelf: "center" }} type="defaultSemiBold">
-          Sales by Day
+          {i18n.t("sales")}
         </ThemedText>
         <LineChart
           data={salesData}
@@ -99,17 +95,17 @@ export default function StatisticScreen() {
 
       <Card
         title={clients.withMostSales.name}
-        subtitle="Top 1 vendas"
+        subtitle={i18n.t("topOneSales")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
         title={clients.withMostAverage.name}
-        subtitle="Top 1 média vendas"
+        subtitle={i18n.t("topOneAverage")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
       <Card
         title={clients.withMostPurchases.name}
-        subtitle="Top 1 compras"
+        subtitle={i18n.t("topOnePurchases")}
         leftIcon={<IconSymbol name="trophy.fill" color="#f1c40f" />}
       />
     </ThemedView>

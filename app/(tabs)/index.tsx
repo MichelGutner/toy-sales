@@ -19,6 +19,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import i18n from "../../i18n";
 
 export default function HomeScreen() {
   const { bottom } = useSafeAreaInsets();
@@ -28,8 +29,15 @@ export default function HomeScreen() {
   const { showActionSheetWithOptions } = useActionSheet();
   const { deleteClient } = useClientsContext();
 
-  const handleClientAction = async (client: TNormalizedClient, currentIndex: number) => {
-    const options = ["Abrir", "Deletar", "Cancelar"];
+  const handleClientAction = async (
+    client: TNormalizedClient,
+    currentIndex: number
+  ) => {
+    const options = [
+      i18n.t("openButton"),
+      i18n.t("deleteButton"),
+      i18n.t("cancelButton"),
+    ];
     const destructiveButtonIndex = 1;
     const cancelButtonIndex = 2;
 
@@ -78,12 +86,12 @@ export default function HomeScreen() {
     try {
       await deleteClient(index);
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: "Client deleted with successfully",
+        message: i18n.t("clientDeletedSuccessfully"),
         type: "success",
       });
     } catch (error: Error | any) {
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: error.message || "Failed to delete client",
+        message: error.message || i18n.t("clientDeletionFailed"),
         type: "error",
       });
     }
@@ -94,7 +102,7 @@ export default function HomeScreen() {
       <View style={styles.headerContainer}>
         <TextInputWithIcons
           containerStyle={{ flex: 1 }}
-          placeholder="Digite o que procura"
+          placeholder={i18n.t("searchPlaceholder")}
           trailingIcon={
             <IconSymbol name="magnifyingglass" color={color.icon} />
           }
@@ -105,7 +113,7 @@ export default function HomeScreen() {
         />
       </View>
       <View style={styles.informativeContainer}>
-        <ThemedText type="defaultSemiBold">Total de clientes</ThemedText>
+        <ThemedText type="defaultSemiBold">{i18n.t("totalClients")}</ThemedText>
         <ThemedText type="defaultSemiBold">{clients.data.length}</ThemedText>
       </View>
       <FlatList

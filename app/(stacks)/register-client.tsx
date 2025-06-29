@@ -14,6 +14,7 @@ import {
   View,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import i18n from "../../i18n";
 
 export default function RegisterClientScreen() {
   const { addClient } = useClientsContext();
@@ -35,10 +36,10 @@ export default function RegisterClientScreen() {
   const hideDatePicker = () => setShowPicker(false);
 
   const handleConfirm = (date: Date) => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-    
+
     const formattedDate = `${day}-${month}-${year}`;
 
     setForm((prev) => ({ ...prev, birthDate: formattedDate }));
@@ -55,14 +56,14 @@ export default function RegisterClientScreen() {
       setLoading(true);
       await addClient(form.name, form.email, form.birthDate);
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: "Client created successfully",
+        message: i18n.t("clientCreatedSuccessfully"),
         type: "success",
       });
       clearInputs();
       router.back();
     } catch (error: any) {
       NativeAppEventEmitter.emit(EVENT_KEY.toast, {
-        message: error.message || "Failed to create client",
+        message: error.message || i18n.t("clientCreationFailed"),
         type: "error",
       });
     } finally {
@@ -116,8 +117,12 @@ export default function RegisterClientScreen() {
           }
           onSubmitEditing={handleCreate}
         />
-        <Button label="Salvar" onPress={handleCreate} loading={loading} />
-        <Button label="Cancelar" onPress={router.back} />
+        <Button
+          label={i18n.t("saveButton")}
+          onPress={handleCreate}
+          loading={loading}
+        />
+        <Button label={i18n.t("cancelButton")} onPress={router.back} />
       </View>
       <DateTimePickerModal
         isVisible={showPicker}

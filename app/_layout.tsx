@@ -10,6 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { Toast } from "@/components/atoms/Toast";
+import { EVENT_KEY } from "@/constants/global";
 import { ClientsProvider } from "@/contexts";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
@@ -36,7 +37,7 @@ export default function RootLayout() {
   };
 
   useEffect(() => {
-    const event = NativeAppEventEmitter.addListener("ToastKey", (data) => {
+    const event = NativeAppEventEmitter.addListener(EVENT_KEY.toast, (data) => {
       setToastData(data);
     });
 
