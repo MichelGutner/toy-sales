@@ -52,9 +52,11 @@ export default function HomeScreen() {
         options,
         cancelButtonIndex,
         destructiveButtonIndex,
+        tintColor: color.text,
         containerStyle: {
           backgroundColor: color.background,
           borderRadius: 12,
+          padding: 16,
         }
       },
       async (selectedIndex?: number) => {
